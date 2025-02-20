@@ -1,11 +1,11 @@
-import { ComponentProps } from 'react'
 import {
-  Button as BluestackButton,
-  Text,
   ButtonSpinner,
+  Button as GluestackButton,
+  Text,
 } from '@gluestack-ui/themed'
+import { ComponentProps } from 'react'
 
-type ButtonProps = ComponentProps<typeof BluestackButton> & {
+type Props = ComponentProps<typeof GluestackButton> & {
   title: string
   variant?: 'solid' | 'outline'
   isLoading?: boolean
@@ -15,10 +15,10 @@ export function Button({
   title,
   variant = 'solid',
   isLoading = false,
-  ...rest
-}: ButtonProps) {
+  ...props
+}: Props) {
   return (
-    <BluestackButton
+    <GluestackButton
       w="$full"
       h="$14"
       bg={variant === 'outline' ? 'transparent' : '$green700'}
@@ -27,7 +27,7 @@ export function Button({
       rounded="$sm"
       $active-bg={variant === 'outline' ? '$gray500' : '$green500'}
       disabled={isLoading}
-      {...rest}
+      {...props}
     >
       {isLoading ? (
         <ButtonSpinner color="$white" />
@@ -40,6 +40,6 @@ export function Button({
           {title}
         </Text>
       )}
-    </BluestackButton>
+    </GluestackButton>
   )
 }

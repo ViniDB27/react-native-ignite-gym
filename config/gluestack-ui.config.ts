@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import { AnimationResolver } from '@gluestack-style/animation-resolver'
 import { MotionAnimationDriver } from '@gluestack-style/legend-motion-animation-driver'
 import { createConfig, createComponents } from '@gluestack-style/react'
@@ -548,7 +549,6 @@ export const gluestackUIConfig = createConfig({
     fonts: {
       heading: 'Roboto_700Bold',
       body: 'Roboto_400Regular',
-      mono: undefined,
     },
     fontSizes: {
       '2xs': 10,
