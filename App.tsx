@@ -1,11 +1,13 @@
-import { View, StatusBar } from 'react-native'
 import {
   useFonts,
   Roboto_700Bold,
   Roboto_400Regular,
 } from '@expo-google-fonts/roboto'
-import { GluestackUIProvider, Text, Center } from '@gluestack-ui/themed'
-import { config } from '@gluestack-ui/config'
+import { GluestackUIProvider, Center } from '@gluestack-ui/themed'
+import { config } from './config/gluestack-ui.config'
+import { StatusBar } from 'react-native'
+import { Loading } from '@components/Loading'
+import { Routes } from './src/routes'
 
 export function App() {
   const [fontsLoaded] = useFonts({
@@ -20,8 +22,8 @@ export function App() {
         backgroundColor="transparente"
         translucent
       />
-      <Center flex={1} bg="$info600">
-        {fontsLoaded ? <Text>Home</Text> : <View />}
+      <Center flex={1} bg="$gray700">
+        {fontsLoaded ? <Routes /> : <Loading />}
       </Center>
     </GluestackUIProvider>
   )
