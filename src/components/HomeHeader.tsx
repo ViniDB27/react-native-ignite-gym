@@ -1,23 +1,51 @@
-import { Heading, HStack, Icon, Text, VStack } from '@gluestack-ui/themed'
-import { UserPhoto } from './UserPhoto'
-import { LogOut } from 'lucide-react-native'
+import { TouchableOpacity } from 'react-native';
+import { Heading, HStack, Text, VStack, Icon } from 'native-base';
+import { MaterialIcons } from '@expo/vector-icons';
+
+import { useAuth } from '@hooks/useAuth';
+
+import { api } from '@services/api';
+
+import defaulUserPhotoImg from '@assets/userPhotoDefault.png'; 
+
+import { UserPhoto } from './UserPhoto';
 
 export function HomeHeader() {
-  return (
-    <HStack bg="$gray600" pt="$16" pb="$5" px="$8" alignItems="center" gap='$4'>
-      <UserPhoto source={{ uri: 'https://github.com/arthurrios.png'}} w='$16' h='$16' alt='Imagem do usuário' />
 
+  const { user, signOut } = useAuth();
+
+  return (
+    <HStack bg="gray.600" pt={16} pb={5} px={8} alignItems="center">
+      <UserPhoto 
+        source={
+          user.avatar  
+          ? { uri: `${api.defaults.baseURL}/avatar/${user.avatar}` } 
+          : defaulUserPhotoImg
+        }
+        size={16}
+        alt="Imagem do usuário"
+        mr={4}
+      />
+      
       <VStack flex={1}>
-        <Text color="$gray100" fontSize="$sm">
-          Olá
+        <Text color="gray.100" fontSize="md">
+          Olá,
         </Text>
-        <Heading color="$gray100" fontSize="$md">
-          Arthur Rios
+
+        <Heading color="gray.100" fontSize="md" fontFamily="heading">
+          {user.name}
         </Heading>
       </VStack>
 
-      <Icon as={LogOut} color='$gray200' size='xl' />
 
+      <TouchableOpacity onPress={signOut}>
+        <Icon 
+          as={MaterialIcons}
+          name="logout"
+          color="gray.200"
+          size={7}
+        />
+      </TouchableOpacity>
     </HStack>
-  )
+  );
 }

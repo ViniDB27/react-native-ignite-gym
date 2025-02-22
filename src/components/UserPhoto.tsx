@@ -1,8 +1,18 @@
-import { Image } from '@gluestack-ui/themed'
-import { ComponentProps } from 'react'
+import { Image, IImageProps } from 'native-base';
 
-type Props = ComponentProps<typeof Image>
+type Props = IImageProps & {
+  size: number;
+}
 
-export function UserPhoto({ ...props }: Props) {
-  return <Image rounded='$full' borderWidth='$2' borderColor='$gray400' backgroundColor='$gray500' {...props} />
+export function UserPhoto({ size, ...rest }: Props) {
+  return (
+    <Image 
+      w={size} 
+      h={size} 
+      rounded="full" 
+      borderWidth={2}
+      borderColor="gray.400"
+      {...rest} 
+    />
+  );
 }

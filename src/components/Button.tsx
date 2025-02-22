@@ -1,45 +1,31 @@
-import {
-  ButtonSpinner,
-  Button as GluestackButton,
-  Text,
-} from '@gluestack-ui/themed'
-import { ComponentProps } from 'react'
+import { Button as ButtonNativeBase, IButtonProps, Text } from 'native-base';
 
-type Props = ComponentProps<typeof GluestackButton> & {
-  title: string
-  variant?: 'solid' | 'outline'
-  isLoading?: boolean
+type Props = IButtonProps & {
+  title: string;
+  variant?: 'solid' | 'outline';
 }
 
-export function Button({
-  title,
-  variant = 'solid',
-  isLoading = false,
-  ...props
-}: Props) {
+export function Button({ title, variant = 'solid', ...rest }: Props) {
   return (
-    <GluestackButton
-      w="$full"
-      h="$14"
-      bg={variant === 'outline' ? 'transparent' : '$green700'}
-      borderWidth={variant === 'outline' ? '$1' : '$0'}
-      borderColor="$green500"
-      rounded="$sm"
-      $active-bg={variant === 'outline' ? '$gray500' : '$green500'}
-      disabled={isLoading}
-      {...props}
+    <ButtonNativeBase
+      w="full"
+      h={14}
+      bg={variant === 'outline' ? 'transparent' : 'green.700'}
+      borderWidth={variant === 'outline' ? 1 : 0}
+      borderColor="green.500"
+      rounded="sm"
+      _pressed={{
+        bg: variant === 'outline' ? 'gray.500' : 'green.500'  
+      }}
+      {...rest}
     >
-      {isLoading ? (
-        <ButtonSpinner color="$white" />
-      ) : (
-        <Text
-          color={variant === 'outline' ? '$green500' : '$white'}
-          fontFamily="$heading"
-          fontSize="$sm"
-        >
-          {title}
-        </Text>
-      )}
-    </GluestackButton>
-  )
+      <Text 
+        color={variant === 'outline' ? 'green.500' : 'white'}
+        fontFamily="heading"
+        fontSize="sm"
+      >
+        {title}
+      </Text>
+    </ButtonNativeBase>
+  );
 }

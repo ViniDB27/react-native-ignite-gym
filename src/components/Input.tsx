@@ -1,59 +1,39 @@
-import {
-  FormControl,
-  FormControlError,
-  FormControlErrorText,
-  Input as GluestackInput,
-  InputField,
-} from '@gluestack-ui/themed'
-import { ComponentProps } from 'react'
+import { Input as NativeBaseInput, IInputProps, FormControl } from 'native-base';
 
-type Props = ComponentProps<typeof InputField> & {
-  errorMessage?: string | null
-  isInvalid?: boolean
-  isReadOnly?: boolean
+type Props = IInputProps & {
+  errorMessage?: string | null;
 }
 
-export function Input({
-  isReadOnly = false,
-  errorMessage = null,
-  isInvalid = false,
-  ...props
-}: Props) {
-  const invalid = !!errorMessage || isInvalid
+export function Input({ errorMessage = null, isInvalid, ...rest }: Props) {
+  const invalid = !!errorMessage || isInvalid;
 
   return (
-    <FormControl isInvalid={invalid} mb="$4" w="$full">
-      <GluestackInput
-        isInvalid={isInvalid}
-        h="$14"
-        borderWidth="$0"
-        borderRadius="$md"
-        $focus={{
+    <FormControl isInvalid={invalid} mb={4}>
+      <NativeBaseInput 
+        bg="gray.700"
+        h={14}
+        px={4}
+        borderWidth={0}
+        fontSize="md"
+        color="white"
+        fontFamily="body"
+        placeholderTextColor="gray.300"
+        isInvalid={invalid}
+        _invalid={{
           borderWidth: 1,
-          borderColor: invalid ? '$red500' : '$green500',
+          borderColor: "red.500"
         }}
-        $invalid={{
+        _focus={{
+          bgColor: 'gray.700',
           borderWidth: 1,
-          borderColor: '$red500',
+          borderColor: 'green.500'
         }}
-        isReadOnly={isReadOnly}
-        opacity={isReadOnly ? 0.5 : 1}
-      >
-        <InputField
-          px="$4"
-          bg="$gray700"
-          color="$white"
-          fontFamily="$body"
-          placeholderTextColor="$gray300"
-          {...props}
-        />
-      </GluestackInput>
+        {...rest}
+      />
 
-      <FormControlError>
-        <FormControlErrorText color="$red500">
-          {errorMessage}
-        </FormControlErrorText>
-      </FormControlError>
+      <FormControl.ErrorMessage _text={{ color: 'red.500' }}>
+        {errorMessage}
+      </FormControl.ErrorMessage>
     </FormControl>
-  )
+  );
 }
